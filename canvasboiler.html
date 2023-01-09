@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script>
+      // Get the canvas element and its context
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      // Set up the character's starting position
+      var x = canvas.width / 2;
+      var y = canvas.height / 2;
+      var size = 50;
+
+      // Set up the character's movement speed
+      var speed = 5;
+
+      // Set up the character's appearance
+      var character = new Image();
+      character.src = "character.png";
+
+      // Set up the keyboard input listeners
+      document.addEventListener("keydown", keyDownHandler);
+      document.addEventListener("keyup", keyUpHandler);
+
+      // Handle the key down event
+      function keyDownHandler(event) {
+        if (event.key == "W" || event.key == "w") {
+          y -= speed;
+        } else if (event.key == "A" || event.key == "a") {
+          x -= speed;
+        } else if (event.key == "S" || event.key == "s") {
+          y += speed;
+        } else if (event.key == "D" || event.key == "d") {
+          x += speed;
+        }
+      }
+
+      // Handle the key up event
+      function keyUpHandler(event) {
+        // Do nothing
+      }
+
+      // Draw the character on the canvas
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(character, x - size / 2, y - size / 2, size, size);
+      }
+
+      // Main game loop
+      function loop() {
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      // Start the game loop
+      loop();
+    </script>
+  </body>
+</html>
